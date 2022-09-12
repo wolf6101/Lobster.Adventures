@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E7FC20C9-EC65-4879-A919-C71950154DFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lobster.Adventures.API", "src\Lobster.Adventures.API\Lobster.Adventures.API.csproj", "{6137E3B8-1825-415B-90CA-295517F5F928}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lobster.Adventures.Application", "src\Lobster.Adventures.Application\Lobster.Adventures.Application.csproj", "{8A52FAC0-7E55-4DD9-9139-0E83D066E5E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lobster.Adventures.Domain", "src\Lobster.Adventures.Domain\Lobster.Adventures.Domain.csproj", "{2CA0A20C-282A-4D12-A1F2-74D6A44CB1AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lobster.Adventures.Infrastructure", "src\Lobster.Adventures.Infrastructure\Lobster.Adventures.Infrastructure.csproj", "{4738163B-E393-4B2E-A8C3-11C60FE7F11D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6137E3B8-1825-415B-90CA-295517F5F928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6137E3B8-1825-415B-90CA-295517F5F928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6137E3B8-1825-415B-90CA-295517F5F928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6137E3B8-1825-415B-90CA-295517F5F928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A52FAC0-7E55-4DD9-9139-0E83D066E5E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A52FAC0-7E55-4DD9-9139-0E83D066E5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A52FAC0-7E55-4DD9-9139-0E83D066E5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A52FAC0-7E55-4DD9-9139-0E83D066E5E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CA0A20C-282A-4D12-A1F2-74D6A44CB1AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CA0A20C-282A-4D12-A1F2-74D6A44CB1AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CA0A20C-282A-4D12-A1F2-74D6A44CB1AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CA0A20C-282A-4D12-A1F2-74D6A44CB1AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4738163B-E393-4B2E-A8C3-11C60FE7F11D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4738163B-E393-4B2E-A8C3-11C60FE7F11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4738163B-E393-4B2E-A8C3-11C60FE7F11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4738163B-E393-4B2E-A8C3-11C60FE7F11D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6137E3B8-1825-415B-90CA-295517F5F928} = {E7FC20C9-EC65-4879-A919-C71950154DFE}
+		{8A52FAC0-7E55-4DD9-9139-0E83D066E5E5} = {E7FC20C9-EC65-4879-A919-C71950154DFE}
+		{2CA0A20C-282A-4D12-A1F2-74D6A44CB1AC} = {E7FC20C9-EC65-4879-A919-C71950154DFE}
+		{4738163B-E393-4B2E-A8C3-11C60FE7F11D} = {E7FC20C9-EC65-4879-A919-C71950154DFE}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,22 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  lobsteradventuresapi:
+    image: lobsteradventuresapi
+    build:
+      context: .
+      dockerfile: src/Lobster.Adventures.API/Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - "sqlserver"
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge
+    ports:
+      - "1433:1433"
+    environment:
+      - SA_PASSWORD=@someThingComplicated1234
+      - ACCEPT_EULA=Y

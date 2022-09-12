@@ -11,4 +11,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Lobster.Adventures.Domain\Lobster.Adventures.Domain.csproj" />
+    <ProjectReference Include="..\Lobster.Adventures.Infrastructure\Lobster.Adventures.Infrastructure.csproj" />
+    <ProjectReference Include="..\Lobster.Adventures.Application\Lobster.Adventures.Application.csproj" />
+  </ItemGroup>
+
 </Project>
