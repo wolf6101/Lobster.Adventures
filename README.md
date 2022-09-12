@@ -53,3 +53,7 @@ In case of tradeoffs between load and bandwitdh, to avoid chatty communication i
 In order to facilitate quick queries of node’s subtree, [Modified Preorder Traversal](https://gist.github.com/tmilos/f2f999b5839e2d42d751) approach can be used.
 
 By applying this approach, `AdventureNode` would be extended with 2 more fields, `rightIndex` and `leftIndex`, which are used for fast `SELECT`s of node’s subtree.
+
+## How to run
+`docker compose build`
+`docker compose up`
