@@ -8,11 +8,11 @@
 
 ## Binary Decision Tree representation
 
-![BinaryDecisionTree](docs/BinaryDecisionTree.png)
+<img src="docs/BinaryDecisionTree.jpg" width="80%">
 
 ## Domain Class Diagram
 
-![DomainClassDiagram](docs/DomainClassDiagram.png)
+<img src="docs/DomainClassDiagram.jpg" width="80%">
 
 # Client to API communication sequence diagrams
 API supports 2 types of client to API communication:
@@ -22,24 +22,24 @@ API supports 2 types of client to API communication:
 ## Complete tree retrieval
 Retrieval of complete adventure tree, caching it on the client side, handling user choices on the client, persisting its state to the database. This approach is recommended when tree is not huge and nodes are lightweight.
 
-![SequenceClientSideExecution](docs/SequenceClientSideExecution.png)
+<img src="docs/SequenceClientSideExecution.jpg" width="80%">
 
 ## Node by node retrieval
-Retrieving tree adventure nodes by node, rendering on the client, persisting choice in the database. 
-This approach is recommended when decision tree is huge (either huge number of nodes or huge size of the node itself) and transferring it to the client would not be considered beneficial. Request on each user choice might look like overhead, but after doing some calculations - it starts looking reasonable. 
+Retrieving tree adventure nodes by node, rendering on the client, persisting choice in the database.
+This approach is recommended when decision tree is huge (either huge number of nodes or huge size of the node itself) and transferring it to the client would not be considered beneficial. Request on each user choice might look like overhead, but after doing some calculations - it starts looking reasonable.
 
 Let’s assume we have a tree of 1 000 000 nodes. Tree of this size has 20 levels (`log2(1000000) = ~20`). In this case user would have to do 20 request to the server. Taking into account that these requests would be stateless with small payload - it makes it a great candidate for reverse proxy caching.
 
 Additionally this can be optimized even further by retrieving node’s subtrees in chunks, say 3 levels, which is a good compromise between number of requests and payload. More on this in Improvements section of this document.
 
-![SequenceServerSideExecution](docs/SequenceServerSideExecution.png)
+<img src="docs/SequenceServerSideExecution.jpg" width="80%">
 
 # Possible improvements
 ## Non binary nature of decision tree
 In case Decision Tree should have more options or name decision differently than YES or NO, next schema could be used:
 
-![ImprovementNaryTreeSchema1](docs/ImprovementNaryTreeSchema1.png)
-![ImprovementNaryTreeSchema2](docs/ImprovementNaryTreeSchema2.png)
+<img src="docs/ImprovementNaryTreeSchema1.jpg" width="80%">
+<img src="docs/ImprovementNaryTreeSchema2.jpg" width="50%">
 
 Described above design works only for N-ary tree, with the standard Decisions list.
 
@@ -48,12 +48,19 @@ In case decisions names vary from node to node, or tree transforms to a graph - 
 ## Partial tree retrieval and cache
 In case of tradeoffs between load and bandwitdh, to avoid chatty communication it is possible to optimize by caching nodes subtree on the client side or cache server and access `JourneyController` only when node is not in the cache.
 
-![ImprovementLocalCacheSubtreeRetrieval](docs/ImprovementLocalCacheSubtreeRetrieval.png)
+<img src="docs/ImprovementLocalCacheSubtreeRetrieval.jpg" width="80%">
 
 In order to facilitate quick queries of node’s subtree, [Modified Preorder Traversal](https://gist.github.com/tmilos/f2f999b5839e2d42d751) approach can be used.
 
 By applying this approach, `AdventureNode` would be extended with 2 more fields, `rightIndex` and `leftIndex`, which are used for fast `SELECT`s of node’s subtree.
 
+## Solution Architecture
+Solution Architecture inspired by [Uncle Bob's Clean Atchitecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), with merged Use Cases and Interface Adapters layers.
+
+<img src="docs/Layers.jpg" width="50%">
+
 ## How to run
-`docker compose build`
-`docker compose up`
+1. Pull repository
+2. Run `docker compose build` from project root
+3. Run `docker compose up`
+4. Browse http://localhost:5095/swagger
