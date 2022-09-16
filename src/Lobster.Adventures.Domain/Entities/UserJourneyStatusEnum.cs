@@ -1,6 +1,6 @@
 namespace Lobster.Adventures.Domain.Entities
 {
-    public enum JourneyStatusEnum
+    public enum UserJourneyStatusEnum
     {
         Created,
         InProgress,

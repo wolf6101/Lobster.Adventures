@@ -10,16 +10,14 @@ namespace Lobster.Adventures.Domain.Entities
             this.AdventureId = adventureId;
             this.Name = name;
         }
-        public string Name { get; }
-        public string Description { get; set; }
-        public Guid AdventureId { get; }
-        public Guid? ParentId { get; }
-        public Guid? LeftChildId { get; }
-        public Guid? RightChildId { get; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+        public Guid AdventureId { get; private set; }
+        public Guid? ParentId { get; set; }
+        public Guid? LeftChildId { get; set; }
+        public Guid? RightChildId { get; set; }
 
         // Navigation Properties
-        public AdventureNode? Parent { get; }
-        public AdventureNode? LeftChild { get; }
-        public AdventureNode? RightChild { get; }
+        public Adventure Adventure { get; private set; }
     }
 }
