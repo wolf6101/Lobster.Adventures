@@ -1,21 +1,32 @@
+using System.Reflection;
+
 using Lobster.Adventures.Infrastructure;
 
-var builder = WebApplication.CreateBuilder(args);
+using MediatR;
 
-// Add services to the container.
-builder.Services.ConfigureInfrastructureServices(builder.Configuration);
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+        // Add services to the container.
+        builder.Services.ConfigureInfrastructureServices(builder.Configuration);
+        builder.Services.AddControllers();
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+        builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
-app.UseSwagger();
-app.UseSwaggerUI();
+        var app = builder.Build();
 
-app.UseAuthorization();
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
-app.MapControllers();
+        app.UseAuthorization();
 
-app.Run();
+        app.MapControllers();
+
+        app.Run();
+    }
+}

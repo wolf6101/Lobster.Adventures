@@ -6,11 +6,11 @@ namespace Lobster.Adventures.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdventureController : ControllerBase
+    public class AdventuresController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public AdventureController(IMediator mediator)
+        public AdventuresController(IMediator mediator)
         {
             _mediator = mediator;
         }
