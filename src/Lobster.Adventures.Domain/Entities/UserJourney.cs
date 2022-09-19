@@ -19,8 +19,6 @@ namespace Lobster.Adventures.Domain.Entities
         public UserJourneyStatusEnum Status { get; private set; }
         public DateTime DateTimeCreated { get; private set; }
         public DateTime DateTimeUpdated { get; private set; }
-
-        // Navigation Properties
         public User User { get; private set; }
         public Adventure Adventure { get; private set; }
 
@@ -41,14 +39,12 @@ namespace Lobster.Adventures.Domain.Entities
 
         public void SetStatus(UserJourneyStatusEnum newStatus)
         {
-            if (newStatus == UserJourneyStatusEnum.Created && Status > UserJourneyStatusEnum.Created)
-            {
-                throw new InvalidOperationException("Journey can't return to Created status after it was actioned");
-            }
+            Guard.Against.MovingToCreatedFromInProgressStatus(newStatus, Status);
 
             Status = newStatus;
             DateTimeUpdated = DateTime.UtcNow;
         }
+
         private void AssertPathIsValid(string path, AdventureNode root)
         {
             Guard.Against.NullOrEmpty(path, nameof(path));
@@ -62,19 +58,13 @@ namespace Lobster.Adventures.Domain.Entities
 
             AdventureNode? current = root;
 
-            if (current.Id != pathIds[currentIndex])
-            {
-                throw new TreeValidationException($"Adventure path is invalid. Adventure '{Adventure.Id}' doesn't have '{pathIds[currentIndex]} as a root node.'");
-            }
+            Guard.Against.InvalidPathFirstNode(current.Id, pathIds[currentIndex], AdventureId);
 
             while (currentIndex < pathIds.Count - 1)
             {
                 if (current.LeftChildId == null && current.RightChild == null)
                 {
-                    if (currentIndex < pathIds.Count)
-                    {
-                        throw new TreeValidationException($"Adventure path is invalid. Node '{pathIds[currentIndex]}' has no more children, but path is not finished.");
-                    }
+                    Guard.Against.DisconnectedPath(currentIndex, pathIds);
                     return;
                 }
 
