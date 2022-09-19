@@ -18,7 +18,7 @@ namespace Lobster.Adventures.UnitTests.Domain
         {
             // Arrange
             var node = new AdventureNode(Guid.Empty, Guid.Empty, "name");
-            AdventureNode nullNode = null;
+            AdventureNode? nullNode = null;
 
             // Assert
             Assert.Throws<ArgumentNullException>(() => Guard.Against.MultipleRootNodes(null, nullNode));
@@ -40,7 +40,7 @@ namespace Lobster.Adventures.UnitTests.Domain
         public void MultipleRootNodesGuard_RootDoesNotExist_ShouldReturnCandidate()
         {
             // Arrange
-            AdventureNode root = null;
+            AdventureNode? root = null;
             var rootCandidate = new AdventureNode(new Guid("5c9b8041-dbbf-4665-9b0d-12a8e6890a0e"), Guid.Empty, "candidate");
 
             // Act
@@ -91,7 +91,7 @@ namespace Lobster.Adventures.UnitTests.Domain
             // Arrange
             var adventure = AdventureTestDataProvider.GetAdventureWithoutNodes(new Guid("7e67bfaf-4c85-4a44-afc5-4e46b6b085e1"));
 
-            AdventureNode root = null;
+            AdventureNode? root = null;
 
             // Assert
             Assert.Throws<TreeValidationException>(() => Guard.Against.NullRootNode(root, adventure));
@@ -124,7 +124,7 @@ namespace Lobster.Adventures.UnitTests.Domain
 
             // Assert
             var exception = Assert.Throws<TreeValidationException>(() => Guard.Against.CyclicReference(hashSet, nodeId, parentId));
-            Assert.Equal(exception.GuardName, "CyclicReference");
+            Assert.Equal("CyclicReference", exception.GuardName);
         }
 
         [Fact]
@@ -168,7 +168,7 @@ namespace Lobster.Adventures.UnitTests.Domain
 
             // Assert
             var exception = Assert.Throws<TreeValidationException>(() => Guard.Against.InvalidChildToParentReference(child, parent.Id));
-            Assert.Equal(exception.GuardName, "InvalidChildToParentReference");
+            Assert.Equal("InvalidChildToParentReference", exception.GuardName);
         }
 
         [Fact]

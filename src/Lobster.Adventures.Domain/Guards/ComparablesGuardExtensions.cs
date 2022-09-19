@@ -1,6 +1,6 @@
 namespace Ardalis.GuardClauses
 {
-    public static class NumericGuardExtensions
+    public static class ComparablesGuardExtensions
     {
         /// <summary>
         /// Throws ArgumentOutOfRangeException if value greater than other value
@@ -16,7 +16,8 @@ namespace Ardalis.GuardClauses
         {
             if (Comparer<TValue>.Default.Compare(value, other) > 0)
             {
-                if (!string.IsNullOrEmpty(message)) {
+                if (!string.IsNullOrEmpty(message))
+                {
                     throw new InvalidOperationException(message);
                 }
 

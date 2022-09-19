@@ -21,8 +21,6 @@ namespace Lobster.Adventures.Infrastructure.Domain.EntityTypeConfigurations
                 .HasForeignKey(n => n.AdventureId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Ignore(a => a.RootNode);
-
             SeedData(builder);
         }
 

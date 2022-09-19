@@ -6,6 +6,7 @@ using Lobster.Adventures.Domain.Entities;
 using Lobster.Adventures.UnitTests.Domain.TestDataProviders;
 
 using Xunit;
+
 using PrivateObject = Microsoft.VisualStudio.TestTools.UnitTesting.PrivateObject;
 
 namespace Lobster.Adventures.UnitTests.Domain
@@ -47,7 +48,7 @@ namespace Lobster.Adventures.UnitTests.Domain
             nodes.Add(root);
 
             var exception = Assert.Throws<TreeValidationException>(() => adventure.SetNodes(nodes));
-            Assert.Equal(exception.GuardName, "MultipleRootNodes");
+            Assert.Equal("MultipleRootNodes", exception.GuardName);
         }
 
         [Fact]
@@ -66,11 +67,11 @@ namespace Lobster.Adventures.UnitTests.Domain
             nodes.Add(nodeWithWrongLeftRef);
 
             var exception = Assert.Throws<TreeValidationException>(() => adventure.SetNodes(nodes));
-            Assert.Equal(exception.GuardName, "InvalidNodeReference");
+            Assert.Equal("InvalidNodeReference", exception.GuardName);
         }
 
         [Fact]
-        public void Adventure_SetNodes_RightChildDoesntExistInNodesList_ShoualdThrowException()
+        public void Adventure_SetNodes_RightChildDoesntExistInNodesList_ShouldThrowException()
         {
             var adventureId = new Guid("81a04fda-e6db-463a-8c53-67edcef3100e");
             var adventure = AdventureTestDataProvider.GetAdventureWithoutNodes(adventureId);
@@ -86,7 +87,7 @@ namespace Lobster.Adventures.UnitTests.Domain
             nodes.Add(nodeWithWrongRightRef);
 
             var exception = Assert.Throws<TreeValidationException>(() => adventure.SetNodes(nodes));
-            Assert.Equal(exception.GuardName, "InvalidNodeReference");
+            Assert.Equal("InvalidNodeReference", exception.GuardName);
         }
 
         [Fact]
@@ -106,7 +107,7 @@ namespace Lobster.Adventures.UnitTests.Domain
             nodes.Add(nodeWithWrongParentRef);
 
             var exception = Assert.Throws<TreeValidationException>(() => adventure.SetNodes(nodes));
-            Assert.Equal(exception.GuardName, "InvalidNodeReference");
+            Assert.Equal("InvalidNodeReference", exception.GuardName);
         }
 
         [Fact]
@@ -120,11 +121,11 @@ namespace Lobster.Adventures.UnitTests.Domain
 
             //Assert
             var exception = Assert.Throws<TreeValidationException>(() => adventure.SetNodes(nodes));
-            Assert.Equal(exception.GuardName, "NullRootNode");
+            Assert.Equal("NullRootNode", exception.GuardName);
         }
 
         [Fact]
-        public void Adventure_SetNodes_ChildReferenceDifferentParent_ShoudThrowException()
+        public void Adventure_SetNodes_ChildReferenceDifferentParent_ShouldThrowException()
         {
             var adventureId = new Guid("81a04fda-e6db-463a-8c53-67edcef3100e");
             var adventure = AdventureTestDataProvider.GetAdventureWithoutNodes(adventureId);
@@ -134,11 +135,11 @@ namespace Lobster.Adventures.UnitTests.Domain
 
             //Assert
             var exception = Assert.Throws<TreeValidationException>(() => adventure.SetNodes(nodes));
-            Assert.Equal(exception.GuardName, "InvalidChildToParentReference");
+            Assert.Equal("InvalidChildToParentReference", exception.GuardName);
         }
 
         [Fact]
-        public void Adventure_SetNodes_JourneysActioned_ShoudPass()
+        public void Adventure_SetNodes_JourneysActioned_ShouldPass()
         {
             var adventureId = new Guid("81a04fda-e6db-463a-8c53-67edcef3100e");
             var adventure = AdventureTestDataProvider.GetAdventureWithoutNodes(adventureId);
@@ -158,7 +159,7 @@ namespace Lobster.Adventures.UnitTests.Domain
         }
 
         [Fact]
-        public void Adventure_SetNodes_ValidInput_ShoudPass()
+        public void Adventure_SetNodes_ValidInput_ShouldPass()
         {
             var adventureId = new Guid("81a04fda-e6db-463a-8c53-67edcef3100e");
             var adventure = AdventureTestDataProvider.GetAdventureWithoutNodes(adventureId);

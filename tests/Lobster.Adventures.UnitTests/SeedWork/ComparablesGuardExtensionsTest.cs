@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Lobster.Adventures.UnitTests.Domain
 {
-    public class NumericGuardExtensionsTest
+    public class ComparablesGuardExtensionsTest
     {
         [Theory]
         [InlineData(5, 0)]

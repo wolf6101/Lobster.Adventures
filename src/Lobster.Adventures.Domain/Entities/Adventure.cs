@@ -1,7 +1,8 @@
 using System.Collections.ObjectModel;
 
-using Lobster.Adventures.Domain.SeedWork;
 using Ardalis.GuardClauses;
+
+using Lobster.Adventures.Domain.SeedWork;
 namespace Lobster.Adventures.Domain.Entities
 {
     public class Adventure : Entity
@@ -16,6 +17,7 @@ namespace Lobster.Adventures.Domain.Entities
         private IList<UserJourney> _journeys = new List<UserJourney>();
         private AdventureNode _rootNode;
         private int _numberOfNodes;
+        private bool _treeConstructed;
         private Guid _rootNodeId;
         private string _name;
         private string? _description;
@@ -24,7 +26,6 @@ namespace Lobster.Adventures.Domain.Entities
         public string? Description { get => _description; private set => _description = value; }
         public int NumberOfNodes { get => _numberOfNodes; private set => _numberOfNodes = value; }
         public Guid RootNodeId { get => _rootNodeId; private set => _rootNodeId = value; }
-        public AdventureNode RootNode { get => _rootNode; private set => _rootNode = value; }
         public IReadOnlyCollection<AdventureNode> Nodes => new ReadOnlyCollection<AdventureNode>(_nodes);
         public IReadOnlyCollection<UserJourney> Journeys => new ReadOnlyCollection<UserJourney>(_journeys);
 
@@ -35,15 +36,31 @@ namespace Lobster.Adventures.Domain.Entities
 
             var root = ConstructBinaryTree(nodes);
 
-            AssertTreeIsValid(root, nodes);
+            AssertBinaryTreeIsValid(root, nodes);
 
             _rootNodeId = root.Id;
             _rootNode = root;
             _nodes = nodes;
             _numberOfNodes = nodes.Count;
+            _treeConstructed = true;
         }
 
         public bool IsValid => Nodes.Count > 0 && RootNodeId != Guid.Empty;
+
+        public AdventureNode GetRootNode()
+        {
+            if (_rootNodeId == Guid.Empty)
+            {
+                throw new InvalidOperationException("Adventure tree was not properly constructed yet");
+            }
+
+            if (_treeConstructed) return _rootNode;
+
+            var root = ConstructBinaryTree(_nodes);
+            _treeConstructed = true;
+
+            return root;
+        }
 
         /// <summary>
         /// Method constructs a tree by populating left and right nodes, based on plain node list input.
@@ -55,7 +72,7 @@ namespace Lobster.Adventures.Domain.Entities
         {
             Guard.Against.NullOrEmpty(nodes, nameof(nodes));
 
-            AdventureNode root = null;
+            AdventureNode? root = null;
 
             var nodesDictionary = nodes.ToDictionary(k => k.Id, v => v); //O(N) T
 
@@ -87,13 +104,13 @@ namespace Lobster.Adventures.Domain.Entities
         }
 
         /// <summary>
-        /// Asserts tree is valid by Traversing it (linear DFS) and assuring that tree is a valid binary tree.
+        /// Asserts that tree is valid by traversing it (linear DFS) from the root node.
         /// O(N) Time, O(N) Space complexity.
         /// </summary>
         /// <param name="nodes">List of nodes which represent a tree</param>
         /// <param name="root">Root of the tree</param>
         /// <exception cref="TreeValidationException"></exception>
-        private static void AssertTreeIsValid(AdventureNode root, IList<AdventureNode> nodes)
+        private static void AssertBinaryTreeIsValid(AdventureNode root, IList<AdventureNode> nodes)
         {
             var visitedNodes = new HashSet<Guid>();
             var nodeStack = new Stack<AdventureNode>();
