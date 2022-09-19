@@ -54,7 +54,7 @@ namespace Lobster.Adventures.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("35168b83-b5f4-4079-b674-12b5f32e995e"),
-                            Depth = 4,
+                            Depth = 3,
                             Description = "Adventure",
                             Name = "Doughnut adventure",
                             NumberOfNodes = 9,

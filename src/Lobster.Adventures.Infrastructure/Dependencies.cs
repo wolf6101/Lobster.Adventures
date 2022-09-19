@@ -29,7 +29,13 @@ namespace Lobster.Adventures.Infrastructure
             var connectionString = configuration.GetConnectionString("Main");
 
             services.AddDbContext<AdventureContext>(options => options.UseSqlServer(connectionString));
-            ApplyMigrations(services);
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            using (var context = serviceProvider.GetService<AdventureContext>())
+            {
+                context.Database.Migrate();
+            }
         }
 
         public static void ConfigureInMemoryDatabase(IServiceCollection services)
@@ -41,16 +47,6 @@ namespace Lobster.Adventures.Infrastructure
             using (var context = serviceProvider.GetService<AdventureContext>())
             {
                 context.Database.EnsureCreated(); // Seeds InMemory database
-            }
-        }
-
-        public static void ApplyMigrations(IServiceCollection services)
-        {
-            var serviceProvider = services.BuildServiceProvider();
-
-            using (var context = serviceProvider.GetService<AdventureContext>())
-            {
-                context.Database.Migrate();
             }
         }
     }

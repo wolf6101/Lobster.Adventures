@@ -14,6 +14,8 @@ namespace Lobster.Adventures.Domain.Entities
         public string? Description { get; set; }
         public Guid AdventureId { get; private set; }
         public Guid? ParentId { get; set; }
+        public AdventureNode? LeftChild { get; set; }
+        public AdventureNode? RightChild { get; set; }
         public Guid? LeftChildId { get; set; }
         public Guid? RightChildId { get; set; }
 

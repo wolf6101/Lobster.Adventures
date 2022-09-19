@@ -36,7 +36,7 @@ namespace Lobster.Adventures.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Adventures",
                 columns: new[] { "Id", "Depth", "Description", "Name", "NumberOfNodes", "RootNodeId" },
-                values: new object[] { new Guid("35168b83-b5f4-4079-b674-12b5f32e995e"), 4, "Adventure", "Doughnut adventure", 9, new Guid("209005df-5897-4491-992e-c25cd9aca290") });
+                values: new object[] { new Guid("35168b83-b5f4-4079-b674-12b5f32e995e"), 3, "Adventure", "Doughnut adventure", 9, new Guid("209005df-5897-4491-992e-c25cd9aca290") });
 
             migrationBuilder.InsertData(
                 table: "AdventureNode",

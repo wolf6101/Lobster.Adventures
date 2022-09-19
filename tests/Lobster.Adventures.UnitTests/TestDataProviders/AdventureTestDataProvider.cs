@@ -1,25 +1,31 @@
+using System;
+using System.Collections.Generic;
+
 using Lobster.Adventures.Domain.Entities;
 
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Lobster.Adventures.Infrastructure.Domain.EntityTypeConfigurations
+namespace Lobster.Adventures.UnitTests.Domain.TestDataProviders
 {
-    public class AdventureNodeEntityTypeConfiguration : IEntityTypeConfiguration<AdventureNode>
+    public static class AdventureTestDataProvider
     {
-        public void Configure(EntityTypeBuilder<AdventureNode> builder)
+        public static Guid RootNodeId => new Guid("209005df-5897-4491-992e-c25cd9aca290");
+        public static Adventure GetAdventureWithoutNodes(Guid adventureId)
         {
-            builder.Ignore(n => n.LeftChild)
-                .Ignore(n => n.RightChild);
+            var adventure = new Adventure(adventureId, "Doughnut adventure", "Adventure");
 
-            SeedData(builder);
+            return adventure;
         }
 
-        private void SeedData(EntityTypeBuilder<AdventureNode> builder)
+        public static Adventure GetAdventure(Guid adventureId)
         {
-            var adventureId = new Guid("35168b83-b5f4-4079-b674-12b5f32e995e");
+            var adventure = new Adventure(adventureId, "Doughnut adventure", "Adventure");
+            adventure.SetNodes(GetAdventureNodes(adventureId));
 
-            var nodeId1 = new Guid("209005df-5897-4491-992e-c25cd9aca290");
+            return adventure;
+        }
+
+        public static IList<AdventureNode> GetAdventureNodes(Guid adventureId)
+        {
+            var nodeId1 = RootNodeId;
             var nodeId21 = new Guid("0e4a446b-adc7-430d-8b84-5ffaca507682");
             var nodeId22 = new Guid("f287a87e-148c-4ffe-aed7-37bb6baefbb8");
             var nodeId31 = new Guid("f7aa73d6-5566-4278-8ae7-a8e273d944a8");
@@ -79,7 +85,7 @@ namespace Lobster.Adventures.Infrastructure.Domain.EntityTypeConfigurations
                 }
             };
 
-            builder.HasData(nodes);
+            return nodes;
         }
     }
 }

@@ -1,5 +1,3 @@
-using System;
-
 using Lobster.Adventures.Domain.SeedWork;
 
 namespace Lobster.Adventures.Domain.Entities
