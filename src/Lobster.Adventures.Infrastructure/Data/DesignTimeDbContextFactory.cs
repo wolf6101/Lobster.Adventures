@@ -1,10 +1,8 @@
-using Lobster.Adventures.Infrastructure.Data;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace Docosoft.UserManagement.Infrastructure.Data
+namespace Lobster.Adventures.Infrastructure.Data
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AdventureContext>
     {

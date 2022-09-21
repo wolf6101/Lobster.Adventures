@@ -1,4 +1,6 @@
+using Lobster.Adventures.Domain.Repositories;
 using Lobster.Adventures.Infrastructure.Data;
+using Lobster.Adventures.Infrastructure.Domain.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +22,10 @@ namespace Lobster.Adventures.Infrastructure
             {
                 ConfigureDatabase(services, configuration);
             }
+
+            services.AddScoped<IAdventureRepository, AdventureRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserJourneyRepository, UserJourneyRepository>();
 
             return services;
         }

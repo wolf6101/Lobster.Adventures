@@ -7,6 +7,6 @@ namespace Lobster.Adventures.API.Controllers
 {
     public class UserController
     {
-        
+
     }
 }

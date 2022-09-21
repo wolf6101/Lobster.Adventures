@@ -7,11 +7,12 @@ namespace Lobster.Adventures.Domain.Repositories
         Task<IList<Adventure>> GetAllAsync(int offset, int limit);
 
         Task<Adventure?> GetAsync(Guid id);
+        Task<Adventure?> GetWithNodesAsync(Guid id);
 
-        Task<Adventure> AddAsync(User user);
+        Task<Adventure> AddAsync(Adventure adventure);
 
-        Task<Adventure> DeleteAsync(User user);
+        Task<Adventure> DeleteAsync(Adventure adventure);
 
-        Task<Adventure> UpdateAsync(Guid id, User user);
+        Task<Adventure> UpdateAsync(Guid id, Adventure adventure);
     }
 }

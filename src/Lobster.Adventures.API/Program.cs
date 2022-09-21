@@ -1,5 +1,6 @@
 using System.Reflection;
 
+using Lobster.Adventures.Application;
 using Lobster.Adventures.Infrastructure;
 
 using MediatR;
@@ -12,6 +13,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.ConfigureInfrastructureServices(builder.Configuration);
+        builder.Services.ConfigureApplicationServices(builder.Configuration);
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
