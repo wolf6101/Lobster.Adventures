@@ -10,6 +10,7 @@ namespace Lobster.Adventures.Application.MappingProfiles
         public AdventureNodeMappingProfile()
         {
             CreateMap<AdventureNode, AdventureNodeDto>().ReverseMap();
+            CreateMap<AdventureNode, CreateAdventureNodeRequestDto>().ReverseMap();
         }
     }
 }

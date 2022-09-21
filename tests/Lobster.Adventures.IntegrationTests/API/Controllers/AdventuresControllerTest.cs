@@ -106,29 +106,29 @@ namespace Lobster.Adventures.IntegrationTests.API.Controllers
             var node22 = new Guid("6cf2c9f6-31e8-4160-a4b4-0921556b7c82");
             var node31 = new Guid("9aa308a3-f2c5-48b2-b25d-3603410c09fb");
 
-            var nodes = new List<AdventureNodeDto> {
-                new AdventureNodeDto() {
+            var nodes = new List<CreateAdventureNodeRequestDto> {
+                new CreateAdventureNodeRequestDto() {
                     Id = node1,
                     ParentId = null,
                     Name = "I am root",
                     LeftChildId = node21,
                     RightChildId = node22,
                 },
-                new AdventureNodeDto() {
+                new CreateAdventureNodeRequestDto() {
                     Id = node21,
                     ParentId = node1,
                     Name = "I am L2 left child",
                     LeftChildId = node31,
                     RightChildId = null,
                 },
-                new AdventureNodeDto() {
+                new CreateAdventureNodeRequestDto() {
                     Id = node22,
                     ParentId = node1,
                     Name = "I am L2 right child",
                     LeftChildId = null,
                     RightChildId = null,
                 },
-                new AdventureNodeDto() {
+                new CreateAdventureNodeRequestDto() {
                     Id = node31,
                     ParentId = node21,
                     Name = "I am L3 left chile",
@@ -157,6 +157,11 @@ namespace Lobster.Adventures.IntegrationTests.API.Controllers
             Assert.Equal(4, adventureDto.NumberOfNodes);
             Assert.Equal(request.Description, adventureDto.Description);
             Assert.Equal(node1, adventureDto.RootNodeId);
+
+            // Cleanup
+            var deleteResponse = await client.DeleteAsync($"api/Adventures/{adventureDto.Id}");
+            var deleteAdventureDto = deleteResponse.Content.ReadFromJsonAsync<AdventureDto>();
+            Assert.NotNull(deleteAdventureDto);
         }
 
         [Fact]
@@ -170,29 +175,29 @@ namespace Lobster.Adventures.IntegrationTests.API.Controllers
             var node22 = new Guid("6cf2c9f6-31e8-4160-a4b4-0921556b7c82");
             var node31 = new Guid("9aa308a3-f2c5-48b2-b25d-3603410c09fb");
 
-            var nodes = new List<AdventureNodeDto> {
-                new AdventureNodeDto() {
+            var nodes = new List<CreateAdventureNodeRequestDto> {
+                new CreateAdventureNodeRequestDto() {
                     Id = node1,
                     ParentId = null,
                     Name = "I am root",
                     LeftChildId = node21,
                     RightChildId = node22,
                 },
-                new AdventureNodeDto() {
+                new CreateAdventureNodeRequestDto() {
                     Id = node21,
                     ParentId = node1,
                     Name = "I am L2 left child",
                     LeftChildId = node31,
                     RightChildId = null,
                 },
-                new AdventureNodeDto() {
+                new CreateAdventureNodeRequestDto() {
                     Id = node22,
                     ParentId = node1,
                     Name = "I am L2 right child",
                     LeftChildId = null,
                     RightChildId = null,
                 },
-                new AdventureNodeDto() {
+                new CreateAdventureNodeRequestDto() {
                     Id = node31,
                     ParentId = node1,
                     Name = "I am L2 extra child",

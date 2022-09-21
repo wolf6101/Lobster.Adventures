@@ -28,9 +28,14 @@ namespace Lobster.Adventures.Infrastructure.Domain.Repositories
             return response.Entity;
         }
 
-        public Task<Adventure> DeleteAsync(Adventure adventure)
+        public async Task<Adventure?> DeleteAsync(Adventure adventure)
         {
-            throw new NotImplementedException();
+            if (adventure == null) return null;
+
+            var response = _context.Remove(adventure);
+            await _context.SaveChangesAsync();
+
+            return response.Entity;
         }
 
         public async Task<IList<Adventure>> GetAllAsync(int offset, int limit)

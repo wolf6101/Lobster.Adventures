@@ -4,6 +4,10 @@ namespace Lobster.Adventures.Domain.Repositories
 {
     public interface IUserJourneyRepository
     {
+        Task<IList<UserJourney>> GetAllAsync(int offset, int limit);
+
+        Task<IList<UserJourney>> GetAllAsync(Guid adventureId, int offset, int limit);
+
         Task<IList<UserJourney>> GetAllAsync(Guid userId, Guid adventureId, int offset, int limit);
 
         Task<UserJourney?> GetAsync(Guid id);
@@ -13,5 +17,7 @@ namespace Lobster.Adventures.Domain.Repositories
         Task<UserJourney> DeleteAsync(UserJourney journey);
 
         Task<UserJourney> UpdateAsync(Guid id, UserJourney journey);
+
+        Task<bool> AnyAsync(Guid adventureId);
     }
 }

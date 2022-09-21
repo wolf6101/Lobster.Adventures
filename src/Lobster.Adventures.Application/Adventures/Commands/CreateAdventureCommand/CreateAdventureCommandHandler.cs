@@ -21,10 +21,17 @@ namespace Lobster.Adventures.Application.Adventures.Commands
         }
         public async Task<EntityResponseDto<AdventureDto>> Handle(CreateAdventureCommand request, CancellationToken cancellationToken)
         {
-            var id = new Guid();
+            var id = Guid.NewGuid();
             var adventure = new Adventure(id, request.Name, request.Description);
+            var nodes = new List<AdventureNode>();
 
-            var nodes = request.Nodes.Select(dto => _mapper.Map<AdventureNode>(dto)).ToList();
+            foreach (var nodeDto in request.Nodes)
+            {
+                var node = new AdventureNode(nodeDto.Id, adventure.Id, nodeDto.Name);
+                node = _mapper.Map<CreateAdventureNodeRequestDto, AdventureNode>(nodeDto, node);
+                nodes.Add(node);
+            }
+
             adventure.SetNodes(nodes);
 
             var response = await _repository.AddAsync(adventure);

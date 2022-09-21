@@ -16,6 +16,6 @@ namespace Lobster.Adventures.Application.Adventures.Commands
         }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<AdventureNodeDto> Nodes { get; set; }
+        public List<CreateAdventureNodeRequestDto> Nodes { get; set; }
     }
 }

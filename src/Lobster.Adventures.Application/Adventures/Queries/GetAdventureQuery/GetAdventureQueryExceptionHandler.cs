@@ -19,6 +19,8 @@ namespace Lobster.Adventures.Application.Adventures.Queries
         {
             _logger.LogError(exception, $"{DateTime.UtcNow.ToUniversalTime()}: {exception.Message}");
 
+            if (exception is not TreeValidationException) throw exception;
+
             var response = new EntityResponseDto<AdventureDto>(null, true, exception)
             {
                 Message = exception.Message

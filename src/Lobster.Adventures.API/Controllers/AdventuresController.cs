@@ -69,5 +69,19 @@ namespace Lobster.Adventures.API.Controllers
 
             return CreatedAtRoute("CreateAdventure", new { id = response.EntityDto.Id }, response.EntityDto);
         }
+
+        [HttpDelete]
+        [Route("{id:guid}", Name = "DeleteAdventure")]
+        [ProducesResponseType(typeof(AdventureDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> DeleteAdventure(Guid id)
+        {
+            var responseDto = await _mediator.Send(new DeleteAdventureCommand(id));
+            if (responseDto.ErrorOccured) return BadRequest(responseDto.Message);
+            if (responseDto.EntityDto == null) return NoContent();
+
+            return Ok(responseDto.EntityDto);
+        }
     }
 }

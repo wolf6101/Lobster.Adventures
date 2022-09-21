@@ -10,7 +10,7 @@ namespace Lobster.Adventures.Application.Adventures.Queries
     public class GetAllAdventuresQueryExceptionHandler : IRequestExceptionHandler<GetAllAdventuresQuery, ListResponseDto<IReadOnlyList<AdventureDto>>, Exception>
     {
         private readonly ILogger<GetAllAdventuresQueryExceptionHandler> _logger;
-
+        // TODO Extreact commong logic
         public GetAllAdventuresQueryExceptionHandler(ILogger<GetAllAdventuresQueryExceptionHandler> logger)
         {
             _logger = logger;
@@ -18,6 +18,8 @@ namespace Lobster.Adventures.Application.Adventures.Queries
         public Task Handle(GetAllAdventuresQuery request, Exception exception, RequestExceptionHandlerState<ListResponseDto<IReadOnlyList<AdventureDto>>> state, CancellationToken cancellationToken)
         {
             _logger.LogError(exception, $"{DateTime.UtcNow.ToUniversalTime()}: {exception.Message}");
+
+            if (exception is not TreeValidationException) throw exception;
 
             var response = new ListResponseDto<IReadOnlyList<AdventureDto>>(null, true, exception)
             {
