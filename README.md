@@ -78,3 +78,11 @@ Solution Architecture inspired by [Uncle Bob's Clean Atchitecture](https://blog.
 2. Run `docker compose build` from project root
 3. Run `docker compose up`
 4. Browse <http://localhost:5095/swagger>
+
+## Nice to do:
+1. Improve exception handling and errors communication to the client
+2. Refactor Mediator Exception Handlers so they all inherit base handler
+3. Cover commands and queries with unit tests
+4. Add swagger documentation, summary, error description, parameters, Enums
+5. Fix 500 error to BadRequest in POST UserJourneys endpoint, when user inputs string.Empty path
+6. Add GET GetAllUserJourney by adventureId, userId
