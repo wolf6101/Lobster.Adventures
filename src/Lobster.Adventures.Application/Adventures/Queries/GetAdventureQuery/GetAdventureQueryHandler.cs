@@ -2,7 +2,6 @@
 using AutoMapper;
 
 using Lobster.Adventures.Application.Adventures.Dtos;
-using Lobster.Adventures.Application.Adventures.Queries;
 using Lobster.Adventures.Application.SeedWork;
 using Lobster.Adventures.Domain.Repositories;
 
@@ -10,12 +9,12 @@ using MediatR;
 
 namespace Lobster.Adventures.Application.Adventures.Queries
 {
-    public class GetUsersQueryHandler : IRequestHandler<GetAdventureQuery, EntityResponseDto<AdventureDto>>
+    public class GetAdventureQueryHandler : IRequestHandler<GetAdventureQuery, EntityResponseDto<AdventureDto>>
     {
         private readonly IAdventureRepository _adventureRepository;
         private readonly IMapper _mapper;
 
-        public GetUsersQueryHandler(IAdventureRepository repository, IMapper mapper)
+        public GetAdventureQueryHandler(IAdventureRepository repository, IMapper mapper)
         {
             _adventureRepository = repository;
             _mapper = mapper;

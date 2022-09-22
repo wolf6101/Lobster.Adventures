@@ -43,7 +43,7 @@ namespace Lobster.Adventures.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Adventures");
+                    b.ToTable("Adventures", (string)null);
 
                     b.HasData(
                         new
@@ -85,7 +85,7 @@ namespace Lobster.Adventures.Infrastructure.Migrations
 
                     b.HasIndex("AdventureId");
 
-                    b.ToTable("AdventureNode");
+                    b.ToTable("AdventureNode", (string)null);
 
                     b.HasData(
                         new
@@ -183,7 +183,7 @@ namespace Lobster.Adventures.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
@@ -226,7 +226,7 @@ namespace Lobster.Adventures.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserJourneys");
+                    b.ToTable("UserJourneys", (string)null);
 
                     b.HasData(
                         new

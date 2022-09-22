@@ -51,6 +51,22 @@ namespace Lobster.Adventures.API.Controllers
             return Ok(response.List);
         }
 
+        [HttpGet]
+        [Route("{adventureId:guid}/node/{id:guid}")]
+        [ProducesResponseType(typeof(AdventureNodeDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetAdventureNode(Guid adventureId, Guid id)
+        {
+            var response = await _mediator.Send(new GetAdventureNodeQuery(adventureId, id));
+
+            if (response.ErrorOccured) return BadRequest(response.Message);
+
+            if (response.EntityDto == null) return NotFound();
+
+            return Ok(response.EntityDto);
+        }
+
         [HttpPost]
         [Route("", Name = "CreateAdventure")]
         [ProducesResponseType(typeof(AdventureDto), (int)HttpStatusCode.Created)]

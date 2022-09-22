@@ -51,6 +51,17 @@ namespace Lobster.Adventures.Infrastructure.Domain.Repositories
             return await _context.Adventures.FirstOrDefaultAsync(a => a.Id == id);
         }
 
+        public async Task<AdventureNode?> GetNodeAsync(Guid adventureId, Guid id)
+        {
+            var result = await _context.Adventures
+                .Include(a => a.Nodes)
+                .Where(a => a.Id == adventureId)
+                .SelectMany(a => a.Nodes)
+                .FirstOrDefaultAsync(n => n.Id == id);
+
+            return result;
+        }
+
         public async Task<Adventure?> GetWithNodesAsync(Guid id)
         {
             return await _context.Adventures

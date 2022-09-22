@@ -18,7 +18,7 @@ namespace Lobster.Adventures.Application.UserJourneys.Commands
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IBusinessRuleValidator _validator;
-
+        // TODO Add update create scenario unit tests
         public UpdateUserJourneyCommandHandler(IUserJourneyRepository userJourneyRepository,
             IAdventureRepository adventureRepository,
             IUserRepository userRepository,
@@ -67,7 +67,8 @@ namespace Lobster.Adventures.Application.UserJourneys.Commands
 
             var dto = _mapper.Map<UserJourneyDto>(journey);
 
-            return new EntityResponseDto<UserJourneyDto>(dto) {
+            return new EntityResponseDto<UserJourneyDto>(dto)
+            {
                 ResourceCreated = created,
                 ResourceUpdated = !created
             };

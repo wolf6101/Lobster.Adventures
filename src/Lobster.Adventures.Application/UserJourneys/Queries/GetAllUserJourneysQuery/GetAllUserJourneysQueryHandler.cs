@@ -24,9 +24,12 @@ namespace Lobster.Adventures.Application.UserJourneys.Queries
         {
             IList<UserJourney> journeys;
 
-            if (request.UserId == null || request.UserId == Guid.Empty) {
+            if (request.UserId == null || request.UserId == Guid.Empty)
+            {
                 journeys = await _userJourneyRepository.GetAllAsync(request.Offset, request.Limit);
-            } else {
+            }
+            else
+            {
                 journeys = await _userJourneyRepository.GetAllAsync((Guid)request.UserId, request.Offset, request.Limit);
             }
 

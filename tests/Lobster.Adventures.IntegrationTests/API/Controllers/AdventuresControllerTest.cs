@@ -49,6 +49,40 @@ namespace Lobster.Adventures.IntegrationTests.API.Controllers
         }
 
         [Fact]
+        public async void AdventuresControllerTest_GetAdventureNode_ShouldReturnNode()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var adventureId = new Guid("35168b83-b5f4-4079-b674-12b5f32e995e");
+            var nodeId = new Guid("130454c8-4a63-40b3-b400-b2b13dc34809");
+
+            var expectedNode = new AdventureNodeDto
+            {
+                Id = nodeId,
+                AdventureId = adventureId,
+                Name = "Is it a good doughnut?",
+                ParentId = new Guid("0e4a446b-adc7-430d-8b84-5ffaca507682"),
+                LeftChildId = new Guid("4ae2afff-92e8-4ac3-b934-3d07be023f3d"),
+                RightChildId = new Guid("2f6a6663-90f8-4313-8441-dda39df5d677")
+            };
+
+            var getResponse = await client.GetAsync($"api/Adventures/{adventureId}/node/{nodeId}");
+            var nodeDto = await getResponse.Content.ReadFromJsonAsync<AdventureNodeDto>();
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode);
+            Assert.NotNull(nodeDto);
+            Assert.Equal(expectedNode.Id, nodeDto.Id);
+            Assert.Equal(expectedNode.AdventureId, nodeDto.AdventureId);
+            Assert.Equal(expectedNode.Name, nodeDto.Name);
+            Assert.Equal(expectedNode.ParentId, nodeDto.ParentId);
+            Assert.Equal(expectedNode.LeftChildId, nodeDto.LeftChildId);
+            Assert.Equal(expectedNode.RightChildId, nodeDto.RightChildId);
+        }
+
+        [Fact]
         public async void AdventuresControllerTest_GetWithoutNodes_ShouldReturnAdventure()
         {
             // Arrange
@@ -69,7 +103,6 @@ namespace Lobster.Adventures.IntegrationTests.API.Controllers
             Assert.Equal(new Guid("35168b83-b5f4-4079-b674-12b5f32e995e"), adventureDto.Id);
             Assert.Equal(new Guid("209005df-5897-4491-992e-c25cd9aca290"), adventureDto.RootNodeId);
             Assert.Empty(adventureDto.Nodes);
-
         }
 
         [Fact]
