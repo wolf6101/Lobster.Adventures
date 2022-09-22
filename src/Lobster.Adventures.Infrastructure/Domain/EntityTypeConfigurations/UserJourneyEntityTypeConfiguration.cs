@@ -18,12 +18,23 @@ namespace Lobster.Adventures.Infrastructure.Domain.EntityTypeConfigurations
             var adventureId = new Guid("35168b83-b5f4-4079-b674-12b5f32e995e");
             var userId = new Guid("4d281e58-9789-4def-ad47-f2f2f98df30e");
 
-            builder.HasData(new List<UserJourney> {
-                new UserJourney (
-                    journeyId,
-                    adventureId,
-                    userId),
-            });
+            var journey = new UserJourney(journeyId, adventureId, userId);
+
+            var nodeId1 = new Guid("209005df-5897-4491-992e-c25cd9aca290");
+            var nodeId21 = new Guid("0e4a446b-adc7-430d-8b84-5ffaca507682");
+            var nodeId31 = new Guid("f7aa73d6-5566-4278-8ae7-a8e273d944a8");
+            var nodeId41 = new Guid("096a086d-980b-44cb-bfa3-382d8f844ee2");
+
+            var pathList = new List<Guid?>
+            {
+                null, nodeId1, nodeId21, nodeId31, nodeId41, null
+            };
+
+            var path = string.Join(',', pathList);
+
+            DataSeedHelper.SetPrivateProperty(journey, nameof(journey.Path), path);
+
+            builder.HasData(new List<UserJourney> { journey });
         }
     }
 }

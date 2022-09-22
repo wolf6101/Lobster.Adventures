@@ -37,22 +37,55 @@ namespace Lobster.Adventures.Infrastructure.Domain.Repositories
 
         public async Task<UserJourney?> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.UserJourneys.FirstOrDefaultAsync(j => j.Id == id);
+        }
+        /// <summary>
+        /// Returns UserJourney with
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<UserJourney?> GetEagerAsync(Guid id)
+        {
+            return await _context.UserJourneys
+                .Include(j => j.Adventure).ThenInclude(a => a.Nodes)
+                .Include(j => j.User)
+                .FirstOrDefaultAsync(j => j.Id == id);
         }
 
         public async Task<UserJourney> AddAsync(UserJourney journey)
         {
-            throw new NotImplementedException();
+            var response = await _context.UserJourneys.AddAsync(journey);
+            await _context.SaveChangesAsync();
+
+            return response.Entity;
         }
 
         public async Task<UserJourney> DeleteAsync(UserJourney journey)
         {
-            throw new NotImplementedException();
+            if (journey == null) return null;
+
+            var response = _context.Remove(journey);
+            await _context.SaveChangesAsync();
+
+            return response.Entity;
         }
 
         public async Task<UserJourney> UpdateAsync(Guid id, UserJourney journey)
         {
-            throw new NotImplementedException();
+            var tracked = _context.ChangeTracker.Entries<UserJourney>().Any(e => e.Entity.Id == id);
+
+            if (!tracked)
+            {
+                var journeyFound = await _context.UserJourneys.FindAsync(id);
+                if (journeyFound == null) return null;
+
+                _context.UserJourneys.Attach(journey);
+                _context.Entry(journey).State = EntityState.Modified;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return journey;
         }
     }
 }

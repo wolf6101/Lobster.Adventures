@@ -12,6 +12,8 @@ namespace Lobster.Adventures.Domain.Repositories
 
         Task<UserJourney?> GetAsync(Guid id);
 
+        Task<UserJourney?> GetEagerAsync(Guid id);
+
         Task<UserJourney> AddAsync(UserJourney journey);
 
         Task<UserJourney> DeleteAsync(UserJourney journey);
