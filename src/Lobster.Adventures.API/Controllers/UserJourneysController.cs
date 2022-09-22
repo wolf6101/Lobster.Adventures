@@ -1,8 +1,8 @@
 using System.Net;
 
 using Lobster.Adventures.Application.UserJourneys.Commands;
-using Lobster.Adventures.Application.UserJourneys.Commands.DeleteUserJourneyCommand;
 using Lobster.Adventures.Application.UserJourneys.Dtos;
+using Lobster.Adventures.Application.UserJourneys.Queries;
 
 using MediatR;
 
@@ -19,6 +19,39 @@ namespace Lobster.Adventures.API.Controllers
         public UserJourneysController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<UserJourneyDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetAll([FromQuery] GetAllUserJourneysRequestDto request)
+        {
+            var query = new GetAllUserJourneysQuery(request);
+            var response = await _mediator.Send(query);
+
+            if (response.ErrorOccured) return BadRequest(response.Message);
+
+            if (response.List == null || response.List.Count == 0) return NotFound();
+
+            return Ok(response.List);
+        }
+
+        [HttpGet]
+        [Route("{id:guid}")]
+        [ProducesResponseType(typeof(UserJourneyDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var response = await _mediator.Send(new GetUserJourneyQuery(id));
+
+            if (response.ErrorOccured) return BadRequest(response.Message);
+
+            if (response.EntityDto == null) return NotFound();
+
+            return Ok(response.EntityDto);
         }
 
         [HttpPost]

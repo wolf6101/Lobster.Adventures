@@ -6,9 +6,7 @@ namespace Lobster.Adventures.Domain.Repositories
     {
         Task<IList<UserJourney>> GetAllAsync(int offset, int limit);
 
-        Task<IList<UserJourney>> GetAllAsync(Guid adventureId, int offset, int limit);
-
-        Task<IList<UserJourney>> GetAllAsync(Guid userId, Guid adventureId, int offset, int limit);
+        Task<IList<UserJourney>> GetAllAsync(Guid userId, int offset, int limit);
 
         Task<UserJourney?> GetAsync(Guid id);
 

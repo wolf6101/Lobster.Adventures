@@ -17,17 +17,19 @@ namespace Lobster.Adventures.Infrastructure.Domain.Repositories
 
         public async Task<IList<UserJourney>> GetAllAsync(int offset, int limit)
         {
-            throw new NotImplementedException();
+            return await _context.UserJourneys
+                          .Skip(offset)
+                          .Take(limit)
+                          .ToListAsync();
         }
 
-        public async Task<IList<UserJourney>> GetAllAsync(Guid adventureId, int offset, int limit)
+        public async Task<IList<UserJourney>> GetAllAsync(Guid userId, int offset, int limit)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IList<UserJourney>> GetAllAsync(Guid userId, Guid adventureId, int offset, int limit)
-        {
-            throw new NotImplementedException();
+            return await _context.UserJourneys
+                          .Skip(offset)
+                          .Take(limit)
+                          .Where(u => u.UserId == userId)
+                          .ToListAsync();
         }
 
         public async Task<bool> AnyAsync(Guid adventureId)
@@ -40,7 +42,7 @@ namespace Lobster.Adventures.Infrastructure.Domain.Repositories
             return await _context.UserJourneys.FirstOrDefaultAsync(j => j.Id == id);
         }
         /// <summary>
-        /// Returns UserJourney with
+        /// Returns UserJourney with Adventure and User nested entities
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

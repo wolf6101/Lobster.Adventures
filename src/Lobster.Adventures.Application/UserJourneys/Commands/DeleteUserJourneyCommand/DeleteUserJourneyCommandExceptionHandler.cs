@@ -1,13 +1,12 @@
 
 using Lobster.Adventures.Application.SeedWork;
-using Lobster.Adventures.Application.UserJourneys.Commands.DeleteUserJourneyCommand;
 using Lobster.Adventures.Application.UserJourneys.Dtos;
 
 using MediatR.Pipeline;
 
 using Microsoft.Extensions.Logging;
 
-namespace Lobster.Adventures.Application.Adventures.Commands
+namespace Lobster.Adventures.Application.UserJourneys.Commands
 {
     public class DeleteUserJourneyCommandExceptionHandler : IRequestExceptionHandler<DeleteUserJourneyCommand, EntityResponseDto<UserJourneyDto>, Exception>
     {

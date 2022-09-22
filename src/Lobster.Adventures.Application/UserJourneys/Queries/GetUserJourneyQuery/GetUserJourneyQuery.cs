@@ -1,14 +1,13 @@
-
 using Lobster.Adventures.Application.SeedWork;
 using Lobster.Adventures.Application.UserJourneys.Dtos;
 
 using MediatR;
 
-namespace Lobster.Adventures.Application.UserJourneys.Commands
+namespace Lobster.Adventures.Application.UserJourneys.Queries
 {
-    public class DeleteUserJourneyCommand : IRequest<EntityResponseDto<UserJourneyDto>>
+    public class GetUserJourneyQuery : IRequest<EntityResponseDto<UserJourneyDto>>
     {
-        public DeleteUserJourneyCommand(Guid id)
+        public GetUserJourneyQuery(Guid id)
         {
             this.Id = id;
         }

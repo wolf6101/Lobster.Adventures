@@ -4,5 +4,6 @@ namespace Lobster.Adventures.Application.UserJourneys.Dtos
 {
     public class GetAllUserJourneysRequestDto : IPagedRequestDto
     {
+        public Guid? UserId { get; set; }
     }
 }

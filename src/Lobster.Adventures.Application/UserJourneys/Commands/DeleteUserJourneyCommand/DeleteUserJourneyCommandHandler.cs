@@ -1,13 +1,12 @@
 using AutoMapper;
 
 using Lobster.Adventures.Application.SeedWork;
-using Lobster.Adventures.Application.UserJourneys.Commands.DeleteUserJourneyCommand;
 using Lobster.Adventures.Application.UserJourneys.Dtos;
 using Lobster.Adventures.Domain.Repositories;
 
 using MediatR;
 
-namespace Lobster.Adventures.Application.Adventures.Commands
+namespace Lobster.Adventures.Application.UserJourneys.Commands
 {
     public class DeleteUserJourneyCommandHandler : IRequestHandler<DeleteUserJourneyCommand, EntityResponseDto<UserJourneyDto>>
     {
